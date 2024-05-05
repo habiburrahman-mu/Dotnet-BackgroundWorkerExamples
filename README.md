@@ -112,3 +112,10 @@ builder.Services.AddHangfireServer();
 
 It will create the following tables in the database related to Hangfire to manage jobs.
 ![Hangire Tables](docs-asset/images/hangfire-tables.png)
+
+The Hangfire Dashboard empowers you to effortlessly manage your background tasks in ASP.NET Core. This robust web interface acts as your central hub, offering comprehensive insights and control over your background jobs. Add dashboard through:
+```
+app.UseHangfireDashboard("/dashboard");
+```
+Then we will get an interactive dashboard at `localhost:port/dashboard`.
+![Hangire Dashboard](docs-asset/images/hangfire-dashboard.png)
