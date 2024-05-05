@@ -1,5 +1,6 @@
 using Hangfire;
 using Hangfire.SqlServer;
+using HangfireExample.Jobs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddTransient<ITestRecurringJob, TestRecurringJob>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -38,5 +41,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseHangfireDashboard("/dashboard");
 app.MapControllers();
+
+RecurringJob.AddOrUpdate("MyJob",() => app.Services.GetRequiredService<ITestRecurringJob>().RunAsync(), Cron.Minutely);
 
 app.Run();
