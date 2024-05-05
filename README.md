@@ -18,3 +18,25 @@ Implementation can be found in [HostedBackgroundService](HostedBackgroundService
 ```
 builder.Services.AddHostedService<SampleIHostedService>();
 ```
+
+- - -
+
+## BackgroundService
+`BackgroundService` is a concrete class provided by ASP.NET Core that inherits from the `IHostedService` interface. It offers a simplified approach to creating long-running background tasks within your application.
+
+While `IHostedService` defines the core functionality for background services, `BackgroundService` provides a more convenient way to implement it. It reduces boilerplate code by handling some aspects of the lifecycle management automatically.
+
+#### Functionality
+- Inherits from `IHostedService`: `BackgroundService` inherits all the functionality of `IHostedService`, including the `StartAsync(CancellationToken cancellationToken)` and `StopAsync(CancellationToken cancellationToken)` methods.
+- `ExecuteAsync(CancellationToken cancellationToken)`: This abstract method serves as the entry point for your background service's logic. You override this method to define the actual work your background task performs. The cancellation token allows for graceful termination during application shutdown.
+
+### Implementation
+Implementation can be found in [BackgroundService](BackgroundService).
+
+[`SampleBackgroundService.cs`](BackgroundService/Services/SampleBackgroundService.cs) file holds the actual implementation of the background tasks. This service is registered in [`Program.cs`](BackgroundService/Program.cs) through
+```
+builder.Services.AddHostedService<SampleBackgroundService>();
+```
+`ExecuteAsync()` is overridden to implement the background task logic. It continuously loops until the cancellation token is signaled, performing work within the loop and simulating a delay between iterations.
+- - -
+
