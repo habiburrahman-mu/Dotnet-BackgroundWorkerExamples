@@ -2,7 +2,7 @@
 
 Welcome to our .NET Background Service Showcase! Give a ⭐️ if you like the repository.
 
-Explore the power of background processing in .NET with comprehensive showcase featuring examples for IHostedService, BackgroundService, WorkerService, and Hangfire. From seamless integration with ASP.NET Core's application lifecycle to simplified long-running task management. Whether you're looking for fine-grained control over lifecycle events or maximum flexibility in hosting environments, our collection covers it all. Dive in and discover how to leverage the full potential of asynchronous processing in your .NET projects today
+Explore the power of background processing in .NET with a comprehensive showcase featuring examples for IHostedService, BackgroundService, WorkerService, and Hangfire. From seamless integration with ASP.NET Core's application lifecycle to simplified long-running task management. Whether you're looking for fine-grained control over lifecycle events or maximum flexibility in hosting environments, our collection covers it all. Dive in and discover how to leverage the full potential of asynchronous processing in your .NET projects today
 
 ## IHostedService, IHostedLifecycleService
 While `IHostedService` provides a solid foundation for background tasks in ASP.NET Core, .NET 8 introduces `IHostedLifecycleService` to offer even more granular control over the application lifecycle. This interface inherits from `IHostedService` and adds additional methods for specific lifecycle events.
@@ -10,10 +10,10 @@ While `IHostedService` provides a solid foundation for background tasks in ASP.N
 #### Functionality of IHostedLifecycleService
 - Methods
 	- Inherits `StartAsync(CancellationToken)` and `StopAsync(CancellationToken)` from `IHostedService`.
-    - `Starting(CancellationToken cancellationToken)`: This method is called just ater `StartAsync` is invoked. It allows for any post-startup actions.
+    - `Starting(CancellationToken cancellationToken)`: This method is called just after `StartAsync` is invoked. It allows for any post-startup actions.
     - `StartedAsync(CancellationToken cancellationToken)`: This method is called just before `StartAsync` is invoked. It allows for any pre-startup actions before the actual background task begins.
     - `StoppingAsync(CancellationToken cancellationToken)`: This method is called just before `StopAsync` is invoked. It allows for any pre-shutdown actions before the background task is stopped.
-    - `StoppedAsync()`: This method is called after `StopAsync` has completed. You can use it for any post-shutdown cleanup or logging.
+    - `StoppedAsync()`: This method is called after `StopAsync` has been completed. You can use it for any post-shutdown cleanup or logging.
 
 ### Implementations
 Implementation can be found in [HostedBackgroundService](HostedBackgroundService).
@@ -86,15 +86,15 @@ var builder = Host.CreateDefaultBuilder(args)
 Hangfire is a popular open-source library for managing background jobs and scheduling tasks within .NET applications (including ASP.NET Core).
 
 **There are different types of jobs that are present in the Hangfire:**
-- **Fire-and-Forget Job:** Fire and Forget jobs are execute only one time after certain conditions that we provide.
-- **Delayed Job:** A delayed job is execute only once but after a specific interval of time.
-- **Recurring Job:** Recurring Job is execute many times after specified condition and time interval
-- **Continuous Job:** Continuation job is execute when its parent job is executed and finished.
+- **Fire-and-Forget Job:** Fire and Forget jobs are executed only one time after certain conditions that we provide.
+- **Delayed Job:** A delayed job is executed only once but after a specific interval of time.
+- **Recurring Job:** Recurring Job is executed many times after specified condition and time interval
+- **Continuous Job:** Continuation job is executed when its parent job is executed and finished.
 
 ### Implementation
 Implementation for Hangfire can be found in [HangfireExample](HangfireExample).
 
-In [`Program.cs`](HangfireExample/Program.cs), services and middleware related to Hangfire is configured.
+In [`Program.cs`](HangfireExample/Program.cs), services and middleware related to Hangfire are configured.
 ```C#
 builder.Services.AddHangfire(configuration => configuration
     .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
@@ -126,7 +126,7 @@ Then we will get an interactive dashboard at `localhost:port/dashboard`.
 
 ![Hangire Dashboard](docs-asset/images/hangfire-dashboard.png)
 
-Recurring job [`TestRecurringJob.cs`](HangfireExample/Jobs/TestRecurringJob.cs) is configred to run minutely by
+Recurring job [`TestRecurringJob.cs`](HangfireExample/Jobs/TestRecurringJob.cs) is configured to run minutely by
 ```C#
 RecurringJob.AddOrUpdate(
 	"MyJob",
@@ -150,6 +150,6 @@ public string Immediate(int id)
 public string Schedule(int id)
 {
     var jobId = BackgroundJob.Schedule(() => testJob.RunAsync(id, "schedule"), TimeSpan.FromSeconds(20));
-    return $"Job ID: {jobId}. Job will start after 20 second";
+    return $"Job ID: {jobId}. The job will start after 20 seconds";
 }
 ```
