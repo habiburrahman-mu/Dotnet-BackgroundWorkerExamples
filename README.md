@@ -12,4 +12,4 @@ While `IHostedService` provides a solid foundation for background tasks in ASP.N
     - `StoppedAsync()`: This method is called after `StopAsync` has completed. You can use it for any post-shutdown cleanup or logging.
 
 ### Implementations
-[Test](BackgroundService)
+Implementation can be found in [HostedBackgroundService](\HostedBackgroundService).
