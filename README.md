@@ -121,3 +121,31 @@ app.UseHangfireDashboard("/dashboard");
 Then we will get an interactive dashboard at `localhost:port/dashboard`.
 
 ![Hangire Dashboard](docs-asset/images/hangfire-dashboard.png)
+
+Recurring job [`TestRecurringJob.cs`](HangfireExample/Jobs/TestRecurringJob.cs) is configred to run minutely by
+```
+RecurringJob.AddOrUpdate(
+	"MyJob",
+    () => app.Services.GetRequiredService<ITestRecurringJob>().RunAsync(),
+    Cron.Minutely);
+```
+
+To run job immediately and schedule jobs, some actions i.e. apis are added in [`HangfireTestController.cs`](HangfireExample/Controller/HangfireTestController.cs).
+
+```
+[HttpGet]
+[Route("immediate/{id}")]
+public string Immediate(int id)
+{
+    var jobId = BackgroundJob.Enqueue(() => testJob.RunAsync(id, "immediate"));
+    return $"Job ID: {jobId}. Job started with value {id}";
+}
+
+[HttpGet]
+[Route("schedule/{id}")]
+public string Schedule(int id)
+{
+    var jobId = BackgroundJob.Schedule(() => testJob.RunAsync(id, "schedule"), TimeSpan.FromSeconds(20));
+    return $"Job ID: {jobId}. Job will start after 20 second";
+}
+```
