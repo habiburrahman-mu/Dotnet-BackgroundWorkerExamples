@@ -28,6 +28,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<ITestRecurringJob, TestRecurringJob>();
+builder.Services.AddScoped<ITestJob, TestJob>();
 
 var app = builder.Build();
 
