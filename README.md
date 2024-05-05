@@ -111,4 +111,4 @@ builder.Services.AddHangfireServer();
 ```
 
 It will create the following tables in the database related to Hangfire to manage jobs.
-![Hangire Tables](docs-asset/hangfire-tables.png)
+![Hangire Tables](docs-asset/images/hangfire-tables.png)
