@@ -15,7 +15,7 @@ While `IHostedService` provides a solid foundation for background tasks in ASP.N
 Implementation can be found in [HostedBackgroundService](HostedBackgroundService).
 
 [`SampleIHostedService.cs`](HostedBackgroundService/Services/SampleIHostedService.cs) file holds the actual implementation of the background tasks. This service is registered in [`Program.cs`](HostedBackgroundService/Program.cs) through
-```
+```C#
 builder.Services.AddHostedService<SampleIHostedService>();
 ```
 
@@ -34,7 +34,7 @@ While `IHostedService` defines the core functionality for background services, `
 Implementation can be found in [BackgroundService](BackgroundService).
 
 [`SampleBackgroundService.cs`](BackgroundService/Services/SampleBackgroundService.cs) file holds the actual implementation of the background tasks. This service is registered in [`Program.cs`](BackgroundService/Program.cs) through
-```
+```C#
 builder.Services.AddHostedService<SampleBackgroundService>();
 ```
 `ExecuteAsync()` is overridden to implement the background task logic. It continuously loops until the cancellation token is signaled, performing work within the loop and simulating a delay between iterations.
@@ -66,7 +66,7 @@ Unlike traditional console applications or ASP.NET Core web apps, Worker Service
 Implementation can be found in [WorkerServiceExample](WorkerServiceExample).
 
 [`Worker.cs`](WorkerServiceExample/Worker.cs) file holds the actual implementation of the background tasks. This service is registered in [`Program.cs`](WorkerServiceExample/Program.cs) through
-```
+```C#
 var builder = Host.CreateDefaultBuilder(args)
     .UseWindowsService()
     .UseSystemd()
@@ -91,7 +91,7 @@ Hangfire is a popular open-source library for managing background jobs and sched
 Implementation for Hangfire can be found in [HangfireExample](HangfireExample).
 
 In [`Program.cs`](HangfireExample/Program.cs), services and middleware related to Hangfire is configured.
-```
+```C#
 builder.Services.AddHangfire(configuration => configuration
     .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
     .UseSimpleAssemblyNameTypeSerializer()
@@ -115,7 +115,7 @@ It will create the following tables in the database related to Hangfire to manag
 ![Hangire Tables](docs-asset/images/hangfire-tables.png)
 
 The Hangfire Dashboard empowers you to effortlessly manage your background tasks in ASP.NET Core. This robust web interface acts as your central hub, offering comprehensive insights and control over your background jobs. Add dashboard through:
-```
+```C#
 app.UseHangfireDashboard("/dashboard");
 ```
 Then we will get an interactive dashboard at `localhost:port/dashboard`.
