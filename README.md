@@ -1,6 +1,6 @@
 # BackgroundWorkerExample
 
-Welcome to our .NET Background Service Showcase!
+Welcome to our .NET Background Service Showcase! Give a ⭐️ if you like the repository.
 
 Explore the power of background processing in .NET with comprehensive showcase featuring examples for IHostedService, BackgroundService, WorkerService, and Hangfire. From seamless integration with ASP.NET Core's application lifecycle to simplified long-running task management. Whether you're looking for fine-grained control over lifecycle events or maximum flexibility in hosting environments, our collection covers it all. Dive in and discover how to leverage the full potential of asynchronous processing in your .NET projects today
 
