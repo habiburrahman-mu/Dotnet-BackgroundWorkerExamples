@@ -75,3 +75,40 @@ var builder = Host.CreateDefaultBuilder(args)
         services.AddHostedService<Worker>();
     });
 ```
+
+- - -
+
+## Hangfire
+Hangfire is a popular open-source library for managing background jobs and scheduling tasks within .NET applications (including ASP.NET Core).
+
+**There are different types of jobs that are present in the Hangfire:**
+- **Fire-and-Forget Job:** Fire and Forget jobs are execute only one time after certain conditions that we provide.
+- **Delayed Job:** A delayed job is execute only once but after a specific interval of time.
+- **Recurring Job:** Recurring Job is execute many times after specified condition and time interval
+- **Continuous Job:** Continuation job is execute when its parent job is executed and finished.
+
+### Implementation
+Implementation for Hangfire can be found in [HangfireExample](HangfireExample).
+
+In [`Program.cs`](HangfireExample/Program.cs), services and middleware related to Hangfire is configured.
+```
+builder.Services.AddHangfire(configuration => configuration
+    .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+    .UseSimpleAssemblyNameTypeSerializer()
+    .UseRecommendedSerializerSettings()
+    .UseSqlServerStorage(
+        hangfireConnectionString,
+        new SqlServerStorageOptions
+        {
+            CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+            SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+            QueuePollInterval = TimeSpan.Zero,
+            UseRecommendedIsolationLevel = true,
+            DisableGlobalLocks = true,
+        }));
+
+builder.Services.AddHangfireServer();
+```
+
+It will create the following tables in the database related to Hangfire to manage jobs.
+![Hangire Tables](docs-asset/hangfire-tables.png)
