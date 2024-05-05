@@ -14,7 +14,7 @@ While `IHostedService` provides a solid foundation for background tasks in ASP.N
 ### Implementations
 Implementation can be found in [HostedBackgroundService](HostedBackgroundService).
 
-[`SampleIHostedService.cs`](HostedBackgroundService\Services\SampleIHostedService.cs) file holds the actual implementation of the background tasks. This service is registered in [`Program.cs`](HostedBackgroundService\Program.cs) through
+[`SampleIHostedService.cs`](HostedBackgroundService/Services/SampleIHostedService.cs) file holds the actual implementation of the background tasks. This service is registered in [`Program.cs`](HostedBackgroundService/Program.cs) through
 ```
 builder.Services.AddHostedService<SampleIHostedService>();
 ```
